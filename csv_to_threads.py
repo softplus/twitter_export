@@ -4,6 +4,17 @@
 # (c) 2023 John Mueller / johnmu.com
 # This code is licensed under MIT license (See LICENSE for details)
 
+#
+# Twitter CSV exporter. Converts the Tweets CSV file into a CSV of your threads
+#
+# - Reads output/tweets.csv
+# - Finds top post, builds your threads
+# - Tracks max likes, max shares across all posts in thread
+# - Stores thread text with " | " separators
+# - Writes to output/threads.csv
+# - Doesn't use API
+#
+
 import csv
 import os
 import signal
@@ -91,6 +102,10 @@ def main():
                 found += 1
         if found == 0: break
         print("Now {:d} threads, have {:d} tweets remaining".format(len(threads), len(tweets)))
+
+    print("Removing individual posts...")
+    for i in range(len(threads), 0, -1):
+        if threads[i-1]["length"] == 1: del threads[i-1]
 
     print("")
     print("Final: Have {:d} threads, have {:d} tweets remaining".format(len(threads), len(tweets)))

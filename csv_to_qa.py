@@ -4,6 +4,16 @@
 # (c) 2023 John Mueller / johnmu.com
 # This code is licensed under MIT license (See LICENSE for details)
 
+#
+# Twitter CSV exporter. Converts the Tweets CSV file to a Q&A CSV
+#
+# - Reads output/tweets.csv
+# - Removes all non-replies, all self-replies
+# - Fetches initial question ("op")
+# - Stores OP + Reply in output/qa.csv
+# - Uses the Twitter API, requires _settings.py, abides by quotas
+#
+
 import _settings as settings
 import tweepy
 import csv
