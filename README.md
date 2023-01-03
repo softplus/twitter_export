@@ -45,10 +45,14 @@ source .venv/bin/activate
 
 # read all your own tweets, store Q&A as CSV in files in /output/
 python3 json_to_csv.py
+
+# compile threads where you reply to your own tweets
 python3 csv_to_threads.py
 
-# this takes a long time, it fetches the tweets you replied to via Twitter API.
-# note: you must set up the Twitter API first.
+# create Q&A CSV file to feed your NLG
+# This takes a long time, it fetches the tweets you replied to via Twitter API.
+# Note: you must set up the Twitter API first.
+# Tweepy will pause when your API quota needs it. 
 python3 csv_to_qa.py
 
 # that's all folks
