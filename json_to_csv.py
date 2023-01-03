@@ -4,6 +4,14 @@
 # (c) 2023 John Mueller / johnmu.com
 # This code is licensed under MIT license (See LICENSE for details)
 
+#
+# Twitter CSV exporter. Run this first.
+#
+# - Processes unzipped Twitter archive from folder twitter/
+# - Creates tweets.csv in folder output/
+# - Does not use Twitter API, does hacky incremental parsing of JSON file for speed
+#
+
 import csv
 import os
 import html
@@ -12,7 +20,7 @@ import datetime
 import json
 import email.utils
 
-abort=False
+abort=False # I feel dirty, lol
 
 # handle ctrl-c gracefully
 def handler(signum, frame):
@@ -64,13 +72,14 @@ def main():
     global abort
     signal.signal(signal.SIGINT, handler)
 
+    # paths and filenames hardcoded
     input_filename = os.path.join("twitter", "data", "tweets.js")
     output_filename = os.path.join("output", "tweets.csv")
 
     is_first_part = True
     include_header = True
-    counter = 0
-    lines = 0
+    tweet_counter = 0
+    line_counter = 0
 
     dataset = []
     with open(input_filename, "r") as tweets_file:
@@ -78,16 +87,16 @@ def main():
         while True:
             if abort: break
             line = tweets_file.readline()
-            lines += 1
-            if not line: 
-                break
-            if line.strip().startswith("\"tweet\""):
+            if not line: break # done
+            line_counter += 1
+            if (line.strip().startswith("\"tweet\"") or line=="]"):
+                if line=="]": buffer.append("(unused)") # hack for end of file
                 if not is_first_part: 
                     tweet_data = json.loads("{" + "".join(buffer[:-2]) + "}")
-                    counter +=1 
+                    tweet_counter += 1
                     item = parse_dict(tweet_data)
                     dataset.append(item)
-                    if counter % 200 == 0:
+                    if tweet_counter % 200 == 0:
                         write_data(output_filename, dataset, include_header)
                         include_header = False
                         dataset = []
@@ -99,7 +108,7 @@ def main():
     # done
     if dataset:
         write_data(output_filename, dataset, include_header)
-    print("done, processed {:d} lines".format(lines))
+    print("done, processed {:d} lines for {:d} tweets".format(line_counter, tweet_counter))
 
 if __name__ == '__main__':
     main()
