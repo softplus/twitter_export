@@ -1,6 +1,7 @@
+# Create a Twitter app through https://developer.twitter.com/ and copy the
+# keys into the fields here. 
+# Save this file as _settings.py
+
 TWITTER_API_KEY="YourTwitterApiKeyGoesHere"
-TWITTER_API_SECRET="MXNgtJVrbs08occ9fI3CAp5QD8ZBESMbOsehoNzTw1EwJoCbHe"
 TWITTER_API_SECRET="YourTwitterApiSecretCodeGoesHere1234567890Secretss"
-TWITTER_API_TOKEN="AAAAAAAAAAAAAAAAAAAAAPITOKennnnnnnnnnnnnnnn%2BAPItokennnnnnnn%3DAPIAPIAPIAPIAPIAPITOKENNNNNNNN1234567890TOKENNNNNS"
-TWITTER_API_ID=12345678
-TWITTER_USERNAME="username"
+TWITTER_BEARER_TOKEN="AAAAAAAAAAAAAAAAAAAAAPITOKennnnnnnnnnnnnnnn%2BAPItokennnnnnnn%3DAPIAPIAPIAPIAPIAPITOKENNNNNNNN1234567890TOKENNNNNS"

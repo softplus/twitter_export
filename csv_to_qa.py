@@ -30,9 +30,9 @@ def handler(signum, frame):
 # setup Twitter API, ctrl-c handler
 def setup():
     global auth, api, client, abort
-    auth = tweepy.OAuth2BearerHandler(settings.TWITTER_API_TOKEN)
+    auth = tweepy.OAuth2BearerHandler(settings.TWITTER_BEARER_TOKEN)
     api= tweepy.API(auth, wait_on_rate_limit=True)
-    client = tweepy.Client(settings.TWITTER_API_TOKEN)
+    client = tweepy.Client(settings.TWITTER_BEARER_TOKEN)
     signal.signal(signal.SIGINT, handler)
 
 # write output

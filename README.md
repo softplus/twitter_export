@@ -21,6 +21,22 @@ pip install -r requirements.txt
 deactivate
 ```
 
+## Setup
+
+### Twitter API setup
+
+1. Make a copy of `_settings_sample.py` and call it `_settings.py`
+2. Follow the guide at https://python-twitter.readthedocs.io/en/latest/getting_started.html to create a new Twitter app, and to get your tokens.
+3. When creating an app, you can use any URL.
+4. Copy `API Key`, `API Key Secret`, and `Bearer Token` into the appropriate fields in `_settings.py`
+
+That's all. I think
+
+### Twitter archive
+
+Extract your Twitter archive and place it in the `twitter` folder here.
+This folder should include sub-directories for `assets` and `data`.
+
 ## Usage
 
 ```bash
@@ -32,11 +48,16 @@ python3 json_to_csv.py
 python3 csv_to_threads.py
 
 # this takes a long time, it fetches the tweets you replied to via Twitter API.
+# note: you must set up the Twitter API first.
 python3 csv_to_qa.py
 
 # that's all folks
 deactivate
 ```
+
+## Dependencies
+
+Some of the code uses `tweepy` to access the Twitter API. 
 
 ## todos
 
@@ -44,3 +65,8 @@ deactivate
 * export all tweets to csv
 * export all posts with images
 * stats on tweets/month, tweets/daytime, time-to-reply
+
+## Questions?
+
+Drop me a post at https://johnmu.com/+
+
